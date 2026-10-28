@@ -1,0 +1,10 @@
+---
+description: Next.js performance optimization, lazy loading, and image handling rules.
+globs: app/**/*.tsx, components/**/*.tsx
+alwaysApply: false
+---
+
+# Performance & Optimization
+- Never use standard `<img>` tags. Always use `next/image`. For images above the fold, explicitly set `priority={true}`.
+- Use `next/dynamic` to lazy-load heavy client-side components (like Framer Motion animations, Three.js canvases, or rich text editors) that are not needed for the initial page load.
+- Prevent Cumulative Layout Shift (CLS) by always explicitly defining `width` and `height` for media, or using Tailwind's `aspect-video` / `aspect-square` utility classes.

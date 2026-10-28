@@ -1,0 +1,22 @@
+---
+description: Standards for form state management, validation schemas, and Next.js Server Actions.
+globs: ["components/forms/**/*.{ts,tsx}", "lib/validations/**/*.ts", "actions/**/*.ts"]
+alwaysApply: false
+---
+
+# Schema Definition (Zod)
+- Define all form schemas using Zod. Extract schemas into separate files (e.g., `lib/validations/auth.ts`) so they can be shared between the client and server.
+- Always include user-friendly `.min()`, `.max()`, and `.regex()` custom error messages in the Zod schema.
+
+# Client-Side Forms (React Hook Form)
+- Use `react-hook-form` paired with `@hookform/resolvers/zod` for all client-side form state and field registration.
+- Build forms using the `shadcn/ui` `<Form>` components to ensure accessibility and automatic error message rendering.
+- For complex forms, manage pending states manually or via React 19's `useActionState` when wiring directly to a Server Action.
+
+# Server Actions & Security
+- All Server Actions must re-validate the incoming `FormData` or payload using the exact same Zod schema used on the client (using `.safeParse()`).
+- Never trust client-side validation alone.
+- If validation fails on the server, return a typed error object (e.g., `{ success: false, errors: z.inferFormattedError<typeof schema> }`) rather than throwing a raw exception.
+
+# For data mutations 
+- implement React 19's useOptimistic hook alongside the Server Action so the UI updates instantly before the server responds.

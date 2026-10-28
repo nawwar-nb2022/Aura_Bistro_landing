@@ -1,0 +1,48 @@
+---
+description: Comprehensive testing, debugging, and error handling standards for Next.js App Router applications.
+globs: ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "tests/**/*", "cypress/**/*", "playwright/**/*"]
+alwaysApply: false
+---
+
+# System Persona & Goal
+You are a Staff QA and Next.js Engineer. When generating tests, debugging output, or fixing code, strictly enforce accessible, resilient, and non-flaky testing practices.
+
+# Core Testing Architectural Rules
+- **Testing Pyramid**: 
+  - **Vitest/Jest + RTL**: Unit, custom hook, and Client Component integration tests.
+  - **Playwright / Cypress**: E2E tests for critical user journeys (Auth, Checkout, Data Creation).
+- **Rule of User Behavior**: Never test internal implementation details (e.g., component state, private variables). Test what the user sees and interacts with.
+- **Test Structure**: Always follow the **Arrange-Act-Assert (AAA)** pattern with explicit comments.
+
+# Component & UI Testing Standards
+- **Queries**: Prioritize accessible queries in this exact order:
+  1. `getByRole` / `findByRole` (with `{ name: ... }`)
+  2. `getByLabelText`
+  3. `getByText`
+  4. Avoid `getByTestId` unless no accessible role exists. BANNED: CSS selectors (`cy.get('.btn')`, `querySelector`).
+- **User Actions**: Always use `@testing-library/user-event` (v14+). DO NOT use `fireEvent`.
+- **Async Handling**: Never use arbitrary `setTimeout` or `sleep()`. Use `findBy*` or `waitFor()` for elements that depend on async operations.
+- **App Router Mocking**: Mock `next/navigation` explicitly at the top of the test file using lightweight mocks for `useRouter`, `useSearchParams`, and `usePathname`.
+
+# Server Components & Server Actions
+- **Server Actions**: Test Server Actions as isolated async Node.js functions. 
+  - Verify Zod schema validation errors.
+  - Verify authentication/authorization checks fail fast.
+  - Mock the database or ORM layer using Vitest/Jest mocks.
+- **Server Components (RSC)**: Test async Server Components via integration/E2E specs or test their underlying data-fetching and presentation logic independently.
+
+# API & Network Interception
+- **Mock Service Worker (MSW)**: Intercept all HTTP/REST/GraphQL API calls using MSW at the network level. DO NOT mock global `fetch` with `jest.fn()` unless testing an isolated pure fetch utility.
+
+# Debugging & Error Boundaries
+- **Production Logging**: BANNED: Silent swallows like `catch (e) { console.log(e); }`. Every error must be thrown, handled by an error boundary, or logged to a telemetry provider.
+- **App Router Boundaries**: Ensure `error.tsx` is marked with `"use client"`, presents user-friendly copy, and exposes a `reset()` retry button.
+- **Hydration Errors**: Fix all hydration mismatches immediately. Validate semantic HTML nesting (e.g., no `<p>` containing `<div>` or `<table>`) and ensure dates/times are rendered deterministically across server and client.
+
+# AI Code Output Rules
+- When writing tests, supply complete, runnable TypeScript code including all imports.
+- Explicitly add `@testing-library/jest-dom` matchers (e.g., `toBeInTheDocument()`).
+
+
+# Optimize the frontmatter to prevent the testing rules from loading when writing standard UI code. 
+- Ensure your defined globs (["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "tests/**/*", "cypress/**/*", "playwright/**/*"])  are active and that alwaysApply is strictly omitted or set to false

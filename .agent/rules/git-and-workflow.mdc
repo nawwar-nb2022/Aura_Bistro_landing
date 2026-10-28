@@ -1,0 +1,65 @@
+---
+description: Comprehensive standards for AI agents handling version control, Conventional Commits, file staging, branch strategies, and PR readiness in Next.js projects.
+globs: ["*"]
+alwaysApply: false
+---
+
+# Role & Git Execution Mindset
+- You are an expert engineer who writes clean code and treats Git as a structured historical log, not an afterthought.
+- Treat Git as a multi-step process: **stage selectively $\rightarrow$ verify diff $\rightarrow$ commit atomically**.
+- Never treat a multi-file task as a single Git action. Work in incremental passes.
+
+---
+
+# Conventional Commit Standards
+- Strictly adhere to the **Conventional Commits** specification. Use these prefixes:
+  - `feat:` New feature or significant UI addition (e.g., `feat: add Zod validation to login server action`)
+  - `fix:` Bug fixes, error handling, or edge-case resolution (e.g., `fix: handle null user profile in navbar`)
+  - `refactor:` Restructuring code or updating Next.js patterns with no behavioral or functional change
+  - `chore:` Updating dependencies, build scripts, or project configurations
+  - `docs:` Updates to README, JSDoc, internal architecture files, or task specs
+  - `style:` Formatting, missing semicolons, or minor layout adjustments (no logic updates)
+  - `test:` Adding or updating unit tests (Jest, Vitest, React Testing Library)
+- **Subject Constraints:**
+  - Written in the **imperative mood** (e.g., `add`, `fix`, `update`, not `added` or `fixing`).
+  - All **lowercase**, concise (under 72 characters), and **no period** at the end.
+
+---
+
+# Staging Rules & File Hygiene
+- **STRICTLY FORBIDDEN:** Never run `git add .`, `git add -A`, or `git commit -am`.
+- **Selective Staging:** Always stage explicit file paths: `git add src/app/actions/user.ts src/lib/schema.ts`.
+- **Verify Diffs Before Staging:** Run `git status` or inspect `git diff` mentally before staging to ensure no transient files, local configs, or generated build output (`.next/`, `node_modules/`, `.env.local`) are included.
+- Clean up lingering debug statements (`console.log`, `debugger`, commented-out experimental code) *before* staging.
+
+---
+
+# Atomic Commits & Task Breakdown Protocol
+- **One Logical Unit = One Commit:** Never combine database/schema updates, Next.js Server Actions, and UI components into a single massive commit.
+- **Sequential Commit Workflow:** When handling a multi-layered task:
+  1. **Layer 1 (Schema / Data):** Implement changes $\rightarrow$ stage specific schema/migration files $\rightarrow$ `chore:` or `feat:` commit.
+  2. **Layer 2 (Logic / API / Actions):** Implement Server Actions / utilities $\rightarrow$ stage specific files $\rightarrow$ `feat:` or `fix:` commit.
+  3. **Layer 3 (UI / Components):** Update React components/styling $\rightarrow$ stage specific files $\rightarrow$ `feat:` commit.
+- **Scope Limit:** If a single prompt or task requires modifying more than **5 distinct logical modules**, pause and outline a proposed multi-commit plan to the user *before* writing code.
+
+---
+
+# Branching Strategy
+- Operate within feature or fix branches following the strict pattern: `<type>/<short-description>`.
+  - Examples: `feature/user-dashboard-layout`, `bugfix/auth-cookie-hydration`, `hotfix/server-action-cors`
+- Never commit directly to `main` or `production` branches unless explicitly instructed by the user.
+
+---
+
+# Safety & Remote Push Directives
+- **Zero Local Pushes:** You are authorized to stage files and create **local commits**, but you must **NEVER run `git push` or `git push --force`** unless explicitly commanded by the user.
+- **Stop & Report:** After creating local commits, display the created commit history (`git log -n <count> --oneline`) and hand control back to the user for final review.
+- **Never Alter History:** Do not run `git rebase`, `git reset --hard`, or force-overwrite history without explicit permission.
+
+---
+
+# Pre-Commit Self-Review Checklist
+Before declaring a Git task complete or presenting commits to the user, ensure:
+1. `npm run build` or `npx tsc --noEmit` completes with zero TypeScript or Next.js build errors.
+2. No sensitive credentials or secrets (`.env`) are staged.
+3. Every commit message strictly follows the `type: imperative subject` format.

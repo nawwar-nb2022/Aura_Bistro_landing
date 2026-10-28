@@ -1,0 +1,14 @@
+---
+description: Security standards, authentication checks, and data sanitization rules.
+globs: ["app/api/**/*.ts", "actions/**/*.ts", "lib/**/*.ts", "middleware.ts", "proxy.ts", ".env*"]
+alwaysApply: false
+---
+
+# Security & Authentication
+- Authentication checks must be the absolute first line of code in any protected Route Handler or Server Action.
+- Never log sensitive user data, passwords, API keys, or full request payloads to the console.
+- Sanitize any user-generated content that will be rendered using `dangerouslySetInnerHTML`.
+- Keep secrets and server-only service configuration in environment variables without the `NEXT_PUBLIC_` prefix. Never expose them to Client Components, browser bundles, rendered props, public responses, or logs.
+- Use `NEXT_PUBLIC_` only for values explicitly designed to be public. Do not treat a public Supabase URL or publishable key as authorization; enforce Row Level Security and server-side authorization.
+- Validate environment variables in a central Zod schema, and mark modules that read server-only configuration with `import "server-only"`.
+- Route browser data access through narrowly scoped, feature-specific Route Handlers or Server Actions that authenticate, authorize, and validate inputs. Do not build a generic database proxy or send privileged keys to the browser.

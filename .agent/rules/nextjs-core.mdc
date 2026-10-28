@@ -1,0 +1,40 @@
+---
+description: Core architectural, state, accessibility, and styling guidelines for the Next.js 16 App Router project.
+globs: ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"]
+alwaysApply: false
+---
+# Core Architecture & System Design (SOLID)
+- Enforce the Single Responsibility Principle: Components should do one thing. Extract complex logic into custom hooks, utility functions, or Server Actions.
+- Favor composition over inheritance. Use `children` props and layout patterns to avoid deep prop drilling.
+- Maintain strict separation of concerns: Server Components for data fetching/SEO, Client Components solely for interactivity (onClick, state, browser APIs).
+- Keep file sizes small. Extract interfaces and types to separate files if they exceed 30 lines.
+
+# Next.js 16 & React App Router
+- Default to Server Components (`page.tsx`, `layout.tsx`). Add `"use client"` only when strictly necessary for interactivity or Redux hooks.
+- Use Next.js Server Actions for all data mutations. Implement `useActionState` (React 19) for form states and `useFormStatus` for pending UI.
+- Fetch data natively using `fetch` or direct ORM/DB calls inside Server Components. Do not use `useEffect` for initial data fetching.
+- Utilize Partial Prerendering (PPR) patterns by wrapping dynamic server components in `<Suspense>` boundaries.
+- Adhere to the latest Next.js 16 caching defaults (queries are uncached by default). Explicitly define `cache: 'force-cache'` or `next: { revalidate: X }` where static generation is required.
+
+# Styling (Tailwind CSS & shadcn/ui)
+- Use standard Tailwind utility classes. Avoid arbitrary values (e.g., `h-[42px]`) unless absolutely necessary; use the design system scales.
+- Utilize the `cn()` utility (clsx + tailwind-merge) for conditional classes and merging custom component props safely.
+- Import and use `shadcn/ui` components from `@/components/ui/` for all core UI elements (Buttons, Dialogs, Forms) before building custom equivalents.
+
+# State Management (Redux Toolkit)
+- Treat Redux as a purely Client-Side state manager for complex, highly interactive global UI state (e.g., audio players, complex multi-step wizards, websocket streams). 
+- Do NOT use Redux to store server data. Server data belongs in Server Components, React Server cache, or URL search params.
+- Use strictly typed hooks: `useAppDispatch` and `useAppSelector`. Never use raw `useDispatch` or `useSelector`.
+- Group Redux logic using the "feature folder" pattern (e.g., `features/cart/cartSlice.ts`).
+
+# SEO & Metadata (OGP & Geo)
+- Every `page.tsx` and `layout.tsx` must export a strongly typed `generateMetadata` function or a static `metadata` object.
+- Always include `title`, `description`, `openGraph` (title, description, url, siteName, images), and `twitter` card metadata.
+- For local or regional pages, strictly implement GEO tags in the metadata block (e.g., `alternates`, `robots`, and custom region tags).
+
+# Accessibility (ARIA, WCAG & Semantic HTML)
+- Always use semantic HTML5 elements (`<article>`, `<nav>`, `<main>`, `<aside>`, `<section>`, `<header>`, `<footer>`). Avoid `<div>` soup.
+- Ensure all interactive elements have appropriate `aria-label`, `aria-expanded`, `aria-controls`, or `aria-hidden` attributes where visual context isn't programmatically available.
+- Form inputs must have explicitly associated `<label>` elements (using `htmlFor`).
+- Maintain strict keyboard navigability. Ensure all interactive elements are focusable and have visible focus states using Tailwind's `focus-visible:ring`.
+- Enforce WCAG AA color contrast ratios for all text and background combinations.

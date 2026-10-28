@@ -1,0 +1,24 @@
+---
+description: Standards for data fetching, caching strategies, Next.js Route Handlers, and third-party API integrations.
+globs: ["app/api/**/*.ts", "lib/api/**/*.ts", "actions/**/*.ts"]
+alwaysApply: false
+---
+
+# Data Fetching & Caching Defaults (Next.js 16)
+- Standard `fetch` requests are NO LONGER cached by default. 
+- If a request should be static/cached, explicitly define it: `fetch('...', { cache: 'force-cache' })`.
+- For Time-Based Revalidation, use: `fetch('...', { next: { revalidate: 3600 } })`.
+- Use Next.js dynamic functions (`cookies()`, `headers()`, `searchParams`) safely; remember they are now Promises in recent Next.js versions and must be `await`ed.
+
+# Third-Party API Integrations
+- NEVER call sensitive third-party APIs (Stripe, Resend, OpenAI) directly from Client Components. 
+- Isolate all external API calls inside Server Actions or Route Handlers (`app/api/.../route.ts`).
+- Validate incoming webhook payloads using the provider's official SDKs and cryptographic signatures before processing data.
+
+# Route Handlers
+- Keep Route Handlers (`route.ts`) thin. Extract the core business logic into separate utility functions in a `lib/` or `services/` folder so the logic can be tested independently of the Next.js Request/Response objects.
+- Always return standard Next.js `NextResponse` objects with appropriate HTTP status codes (e.g., 200 for OK, 400 for Bad Request, 401 for Unauthorized).
+
+# Server Actions 
+- must never throw raw errors to the client.
+- Always wrap the logic in a try/catch and return a standard typed object: { success: boolean, data?: T, error?: string }.

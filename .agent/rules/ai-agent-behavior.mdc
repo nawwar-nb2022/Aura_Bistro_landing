@@ -1,0 +1,10 @@
+---
+description: Universal agent behavior constraints, plan-first workflow, and tool usage.
+alwaysApply: true
+---
+
+# Agent Behavior Rules
+- Never leave incomplete code, placeholder comments (`// TODO`), or `...` in your output. Always provide complete, copy-pasteable implementations.
+- Before modifying more than 3 files or starting a complex refactor, you must write a step-by-step plan and wait for my approval.
+- Do not invent or assume the existence of npm packages. If you need a new dependency, ask for permission first.
+- When fixing TypeScript errors, strictly ban the use of `@ts-ignore` or `any`. Use `unknown` with type narrowing instead.

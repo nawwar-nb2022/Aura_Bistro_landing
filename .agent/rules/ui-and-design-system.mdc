@@ -1,0 +1,34 @@
+---
+description: Standards for component architecture, responsive design, animations, and design token usage.
+globs: ["components/**/*.{ts,tsx}", "styles/**/*.css", "tailwind.config.ts"]
+alwaysApply: false
+---
+
+# Component Architecture & Variants
+- Build flexible, reusable UI components using `class-variance-authority` (CVA) combined with `tailwind-merge` and `clsx` (via the `cn()` utility).
+- Never hardcode arbitrary hex codes or pixel values in components. Always utilize the design tokens defined in `tailwind.config.ts` (e.g., `bg-primary`, `text-muted-foreground`, `font-sans`).
+- Build components mobile-first. Use Tailwind's default breakpoint prefixes (`sm:`, `md:`, `lg:`, `xl:`) to scale UI progressively for larger screens.
+
+# Icons & SVGs
+- Use Lucide React for standard application icons to ensure consistent stroke widths and scaling.
+- When importing custom SVGs, convert them to React components and expose standard SVG props (like `className`, `width`, `height`) so they can be styled via Tailwind text and fill utilities.
+- Do not use `<img>` tags for vector icons.
+
+# Animations & Transitions
+- Default to CSS transitions and Tailwind's built-in animate utilities (`animate-in`, `fade-in`, `slide-in-from-bottom`) for simple hover states, mount animations, and micro-interactions.
+- For complex, multi-step, or physics-based animations, use Framer Motion. Keep Framer Motion logic isolated to Client Components.
+- Always respect user accessibility preferences. Implement `motion-reduce` Tailwind variants or Framer Motion's `useReducedMotion` hook to disable heavy animations for users who prefer reduced motion.
+
+# Z-Index & Stacking Contexts
+- Strictly avoid arbitrary z-index values (`z-[999]`). 
+- Rely on native DOM stacking contexts where possible, or use a defined scale in the Tailwind config for layers (e.g., base, dropdown, sticky, modal, popover, toast).
+- Use Radix UI Primitives (via shadcn/ui) `<Portal>` components to mount overlays, dialogs, and tooltips at the root of the DOM to avoid clipping issues.
+
+# When implementing dark mode or themes, 
+- rely on next-themes and CSS variables. 
+- Do not use useEffect to check the theme on mount, as this causes hydration UI flashes.
+
+<!-- # Project-Specific Design Tokens (Update per project)
+- Colors: Always use the semantic Tailwind classes defined in `tailwind.config.ts`. The primary brand color is `bg-brand-primary` (do not use raw hex codes).
+- Typography: The primary font is a custom local font. Use the Tailwind class `font-heading` for titles (maps to `var(--font-custom-heading)`) and `font-sans` for body text.
+- Breakpoints: This project uses custom Figma breakpoints. Mobile is default, tablet is `md:` (768px), desktop is `lg:` (1200px), and ultra-wide is `2xl:` (1600px). -->

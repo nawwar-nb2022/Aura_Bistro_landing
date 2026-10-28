@@ -1,0 +1,21 @@
+---
+description: Autonomous protocol for code commenting, granular action logging, project-status tracking, and README synchronization in VS Code.
+globs: ["**/*.ts", "**/*.tsx", "**/*.md", "docs/**/*.md", ".env*"]
+alwaysApply: true
+---
+
+# 1. Project Context & High-Level Purpose
+> **AI Context Requirement:** When creating or updating `README.md` or major project summaries, clearly articulate:
+> 1. What problem the application solves and its core value proposition.
+> 2. Primary target audience and major user-facing capabilities.
+> 3. Production architecture and tech stack choices.
+
+---
+
+# 2. Autonomous Workflow Execution Order
+Whenever executing a feature implementation or major refactor inside VS Code, follow this **4-step lifecycle**:
+
+1. **Establish context:** Read the relevant project plan, requirements, backlog, and applicable rules before deciding on an implementation.
+2. **Inspect and plan:** Review the existing implementation and related tests. Identify the acceptance criteria, affected files, and a concise implementation sequence before editing.
+3. **Implement and record:** Make focused changes that follow existing patterns. Add comments only to explain non-obvious reasoning. Keep project-status and completed-work documentation accurate as the work progresses.
+4. **Verify and synchronize:** Run the smallest relevant checks, confirm the acceptance criteria, update the README when project setup or architecture changes, and report the outcome and any remaining limitations.
