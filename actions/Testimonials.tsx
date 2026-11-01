@@ -1,7 +1,25 @@
 import { TESTIMONIALS_DATA } from "@/data/static";
 import { Testimonial } from "@/data/types";
 
-export async function getTestimonialsData(): Promise<Testimonial[]> {
-    await new Promise((resolve) => setTimeout(resolve, 150));
-    return TESTIMONIALS_DATA;
+
+type TestimonialDataResult =
+    | { success: true; data: Testimonial[] }
+    | { success: false; error: string };
+
+export async function getTestimonialData(): Promise<TestimonialDataResult> {
+    try {
+        // Simulate network call or database query
+        await new Promise((resolve) => setTimeout(resolve, 200));
+
+        // Optional: Simulate unexpected error for testing
+        // throw new Error("Database connection failed");
+
+        return { success: true, data: TESTIMONIALS_DATA };
+    } catch (error) {
+        console.error('[ACTIONS_GET_MENU_ERROR]:', error);
+
+        // Return safe fallback data so the UI doesn't crash
+        return { success: false, error: "Unable to load testimonials data." }
+
+    }
 }
