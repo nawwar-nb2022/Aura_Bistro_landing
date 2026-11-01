@@ -39,7 +39,7 @@ export default function ContactSection() {
                             <input
                                 type="text"
                                 placeholder="Jane Doe"
-                                readOnly
+
                                 className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-neutral-200 focus:outline-none focus:border-amber-500 transition-colors"
                             />
                         </div>
@@ -50,17 +50,18 @@ export default function ContactSection() {
                                 <input
                                     type="text"
                                     placeholder="MM/DD/YYYY"
-                                    readOnly
+
                                     className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-neutral-200 focus:outline-none focus:border-amber-500 transition-colors"
                                 />
                             </div>
                             <div>
                                 <label className="block text-xs font-medium text-neutral-400 mb-1">Guests</label>
                                 <select
-                                    disabled
-                                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-neutral-400 focus:outline-none cursor-not-allowed"
+                                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-neutral-400 focus:outline-none "
                                 >
+                                    <option>1 Guests</option>
                                     <option>2 Guests</option>
+                                    <option>3 Guests</option>
                                 </select>
                             </div>
                         </div>
@@ -70,7 +71,6 @@ export default function ContactSection() {
                             <textarea
                                 rows={3}
                                 placeholder="Seating preferences, dietary restrictions..."
-                                readOnly
                                 className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-neutral-200 focus:outline-none focus:border-amber-500 transition-colors resize-none"
                             />
                         </div>
