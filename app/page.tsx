@@ -26,38 +26,18 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-amber-500 selection:text-neutral-950">
-
-      {/* ------------------------------------------ */}
-      {/* HEADER & NAVIGATION                        */}
-      {/* ------------------------------------------ */}
-
-      {/* ------------------------------------------ */}
-      {/* HERO SECTION                               */}
-      {/* ------------------------------------------ */}
+      {/* HERO SECTION*/}
       <Hero />
-      {/* ------------------------------------------ */}
-      {/* ABOUT SECTION                              */}
-      {/* ------------------------------------------ */}
+      {/* ABOUT SECTION */}
       <About />
-      {/* ------------------------------------------ */}
-      {/* FEATURES / WHY CHOOSE US                   */}
-      {/* ------------------------------------------ */}
+      {/* FEATURES / WHY CHOOSE US  */}
       <Features />
-      {/* ------------------------------------------ */}
-      {/* MENU SECTION                               */}
-      {/* ------------------------------------------ */}
+      {/* MENU SECTION  */}
       <MenuSection />
-      {/* ------------------------------------------ */}
-      {/* TESTIMONIALS SECTION                       */}
-      {/* ------------------------------------------ */}
+      {/* TESTIMONIALS SECTION */}
       <TestimonialsSection />
-      {/* ------------------------------------------ */}
-      {/* CONTACT / LOCATION SECTION                 */}
-      {/* ------------------------------------------ */}
+      {/* CONTACT / LOCATION SECTION*/}
       <ContactSection />
-      {/* ------------------------------------------ */}
-      {/* FOOTER                                     */}
-      {/* ------------------------------------------ */}
 
     </div>
   );
