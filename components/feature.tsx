@@ -1,23 +1,26 @@
-"use client";
-const FEATURES = [
-    {
-        title: 'Farm to Table',
-        description: 'We source 100% of our produce and meats from local organic farms weekly.',
-        icon: '🌱',
-    },
-    {
-        title: 'Master Chefs',
-        description: 'Our culinary team brings over 20 years of Michelin-starred experience.',
-        icon: '👨‍🍳',
-    },
-    {
-        title: 'Artisanal Drinks',
-        description: 'Handcrafted cocktails and a curated selection of fine natural wines.',
-        icon: '🍷',
-    },
-];
+import { getFeatureData } from "@/actions/Features"
 
-export default function Features() {
+export default async function Features() {
+
+    const result = await getFeatureData()
+
+    if (!result.success) {
+        return (
+            <section id="features" className="py-24 px-6 max-w-7xl mx-auto">
+                <p role="alert" className="text-center text-red-400">{result.error}</p>
+            </section>
+        )
+    }
+
+    const FEATURES = result.data
+    if (FEATURES.length === 0) {
+        return (
+            <section id="features" className="py-24 px-6 max-w-7xl mx-auto">
+                <p className="text-center text-neutral-400">No features available.</p>
+            </section>
+        )
+    }
+
     return (
         <section id="features" className="py-24 px-6 max-w-7xl mx-auto">
             <div className="text-center space-y-4 mb-16">

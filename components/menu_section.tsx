@@ -1,30 +1,23 @@
-"use client"
+import { getMenuData } from "@/actions/Menu"
 
-const MENU_ITEMS = [
-    {
-        category: 'Starters',
-        items: [
-            { name: 'Truffle Burrata', price: '$18', description: 'Fresh burrata, heirloom tomatoes, aged balsamic, micro basil' },
-            { name: 'Charred Octopus', price: '$22', description: 'Spanish octopus, romesco sauce, smoked paprika, lemon oil' },
-        ],
-    },
-    {
-        category: 'Mains',
-        items: [
-            { name: 'Pan-Seared Sea Bass', price: '$36', description: 'Saffron risotto, braised fennel, citrus beurre blanc' },
-            { name: 'Prime Ribeye (12oz)', price: '$48', description: 'Grass-fed beef, roasted garlic butter, rosemary potatoes' },
-            { name: 'Wild Mushroom Rigatoni', price: '$28', description: 'Handmade pasta, black truffle cream, parmigiano reggiano' },
-        ],
-    },
-    {
-        category: 'Desserts',
-        items: [
-            { name: 'Pistachio Tart', price: '$14', description: 'Sicilian pistachio cream, dark chocolate crust, sea salt' },
-            { name: 'Classic Tiramisu', price: '$12', description: 'Espresso-soaked ladyfingers, mascarpone, cocoa powder' },
-        ],
-    },
-];
-export default function MenuSection() {
+
+export default async function MenuSection() {
+    const result = await getMenuData()
+
+    if (!result.success) {
+        return (
+            <section id="menu" className="py-24 px-6 max-w-7xl mx-auto">
+                <p role="alert" className="text-center text-red-400">{result.error}</p>
+            </section>
+        )
+    }
+    if (result.data.length === 0) {
+        return (
+            <section id="menu" className="py-24 px-6 max-w-7xl mx-auto">
+                <p className="text-center text-neutral-400">No menu items available.</p>
+            </section>
+        )
+    }
     return (
         <section id="menu" className="py-24 bg-neutral-900/30 border-y border-neutral-800 px-6">
             <div className="max-w-5xl mx-auto">
@@ -34,7 +27,7 @@ export default function MenuSection() {
                 </div>
 
                 <div className="space-y-16">
-                    {MENU_ITEMS.map((section, idx) => (
+                    {result.data.map((section, idx) => (
                         <div key={idx} className="space-y-8">
                             <h4 className="text-2xl font-serif font-bold text-amber-400 border-b border-neutral-800 pb-3">
                                 {section.category}
