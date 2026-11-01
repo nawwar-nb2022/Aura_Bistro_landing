@@ -1,12 +1,7 @@
 import { MENU_DATA } from "@/data/static";
-import { MenuCategory } from "@/data/types";
+import { DataResult, MenuCategory } from "@/data/types";
 
-
-type MenuDataResult =
-    | { success: true; data: MenuCategory[] }
-    | { success: false; error: string };
-
-export async function getMenuData(): Promise<MenuDataResult> {
+export async function getMenuData(): Promise<Promise<DataResult<MenuCategory[]>>> {
     try {
         // Simulate network call or database query
         await new Promise((resolve) => setTimeout(resolve, 200));

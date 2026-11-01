@@ -1,12 +1,9 @@
 import { TESTIMONIALS_DATA } from "@/data/static";
-import { Testimonial } from "@/data/types";
+import { DataResult, Testimonial } from "@/data/types";
 
 
-type TestimonialDataResult =
-    | { success: true; data: Testimonial[] }
-    | { success: false; error: string };
 
-export async function getTestimonialData(): Promise<TestimonialDataResult> {
+export async function getTestimonialData(): Promise<Promise<DataResult<Testimonial[]>>> {
     try {
         // Simulate network call or database query
         await new Promise((resolve) => setTimeout(resolve, 200));

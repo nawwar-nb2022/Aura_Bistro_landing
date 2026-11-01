@@ -1,11 +1,8 @@
 import { FEATURES_DATA } from "@/data/static";
-import type { FeatureType } from "@/data/types";
+import type { DataResult, FeatureType } from "@/data/types";
 
-type FeatureDataResult =
-    | { success: true; data: FeatureType[] }
-    | { success: false; error: string };
 
-export async function getFeatureData(): Promise<FeatureDataResult> {
+export async function getFeatureData(): Promise<DataResult<FeatureType[]>> {
     try {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
