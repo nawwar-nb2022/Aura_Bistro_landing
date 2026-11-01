@@ -1,4 +1,4 @@
-import { Feature, MenuCategory, Testimonial } from "./types";
+import { FeatureType, MenuCategory, Testimonial } from "./types";
 
 export const MENU_DATA: MenuCategory[] = [
     {
@@ -25,7 +25,7 @@ export const MENU_DATA: MenuCategory[] = [
     },
 ];
 
-export const FEATURES_DATA: Feature[] = [
+export const FEATURES_DATA: FeatureType[] = [
     {
         title: 'Farm to Table',
         description: 'We source 100% of our produce and meats from local organic farms weekly.',
