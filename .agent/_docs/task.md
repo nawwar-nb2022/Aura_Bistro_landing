@@ -9,34 +9,34 @@
 
 ## Phase 1 — Project Inspection
 
-- [ ] Inspect project structure.
-- [ ] Inspect Next.js version and dependencies.
-- [ ] Review existing UI and styling conventions.
-- [ ] Review backend and API integration.
-- [ ] Inspect authentication implementation.
-- [ ] Inspect database structure.
-- [ ] Inspect image storage capabilities.
-- [ ] Identify technical conflicts.
-- [ ] Prepare technical implementation proposal.
-- [ ] Review unresolved decisions.
+- [x] Inspect project structure.
+- [x] Inspect Next.js version and dependencies.
+- [x] Review existing UI and styling conventions.
+- [x] Review backend and API integration.
+- [x] Inspect authentication implementation.
+- [x] Inspect database structure.
+- [x] Inspect image storage capabilities.
+- [x] Identify technical conflicts.
+- [x] Prepare technical implementation proposal.
+- [x] Review unresolved decisions.
 
 ## Phase 2 — Design Foundation
 
-- [ ] Define design tokens.
-- [ ] Configure Inter typography.
-- [ ] Implement color system.
-- [ ] Implement spacing system.
-- [ ] Implement shared button components.
-- [ ] Implement form inputs.
-- [ ] Implement cards.
-- [ ] Implement tables.
-- [ ] Implement status badges.
-- [ ] Implement dropdowns.
-- [ ] Implement action menus.
-- [ ] Implement modals.
-- [ ] Implement confirmation dialogs.
-- [ ] Implement Toast notifications.
-- [ ] Implement loading skeletons.
+- [x] Define design tokens.
+- [x] Configure Inter typography.
+- [x] Implement color system.
+- [x] Implement spacing system.
+- [x] Implement shared button components.
+- [x] Implement form inputs.
+- [x] Implement cards.
+- [x] Implement tables.
+- [x] Implement status badges.
+- [x] Implement dropdowns.
+- [x] Implement action menus.
+- [x] Implement modals.
+- [x] Implement confirmation dialogs.
+- [x] Implement Toast notifications.
+- [x] Implement loading skeletons.
 
 ## Phase 3 — Dashboard Shell
 
@@ -191,8 +191,26 @@
 
 ## Current Progress
 
-Current stage: Documentation and technical preparation.
+Current stage: Phase 2 in progress — design foundation and shared dashboard primitives are being implemented.
 
-Next task: Project inspection and technical implementation proposal.
+Technical proposal summary:
 
-Do not begin major implementation until the technical proposal and unresolved architecture decisions have been reviewed.
+- The repository is currently a landing-page application, not a dashboard implementation.
+- The project is built with Next.js 16 App Router, React 19, TypeScript, and Tailwind-based styling.
+- Public landing-page routes and components already exist and should remain intact for now.
+- The dashboard will be introduced as a separate admin route and should not modify the current landing-page flow.
+- Authentication, authorization, data persistence, and image handling remain unresolved and will be defined before major implementation.
+- The project is ready for dashboard frontend work, but backend and data-layer requirements must be approved before moving into full feature implementation.
+
+Phase 2 status:
+
+- Dashboard tokens and shared UI primitives were aligned with the approved light palette, 8px radius, spacing, table, and status badge specifications.
+- Reusable UI primitives for cards, badges, inputs, and tables were created in `components/ui/`.
+- A reusable, keyboard-accessible select dropdown was added in `components/ui/select.tsx` using the existing Base UI dependency.
+- A reusable keyboard-accessible content action menu was added in `components/ui/action-menu.tsx`; published records expose Edit/Delete and drafts expose Edit/Publish.
+- Delete remains a caller-provided action so the content workflow can confirm and soft-unpublish as specified; this primitive does not implement record mutation.
+- Shared responsive dialog primitives were added in `components/ui/dialog.tsx`, with labelled title/description, optional close control, scrollable content, and an adaptive footer.
+- Reusable confirmation dialogs were added in `components/ui/confirmation-dialog.tsx`, including the exact unsaved-changes warning and Keep Editing / Discard Changes actions.
+- React Toastify is mounted in the admin layout through `components/ui/toast-provider.tsx`, with shared success, error, and info helpers for dashboard workflows.
+
+Next task: review and verify the completed Phase 2 design foundation, then proceed to Phase 3 dashboard shell.
