@@ -25,7 +25,7 @@ Before making implementation decisions, read the relevant project documentation.
 For tasks involving the dashboard, also read:
 
 - `.agent/_docs/dashboard/product-decisions.md` — Confirmed product decisions, business rules, and behavior.
-- `.agent/_docs/dashboard/wireframe-specification.md` — Dashboard structure, layouts, components, and interaction behavior.
+- `.agent/_docs/dashboard/wireframe.md` — Dashboard structure, layouts, components, and interaction behavior.
 - `.agent/_docs/dashboard/design-system.md` — Visual design rules, typography, colors, spacing, and component styling.
 
 Do not read every document blindly for unrelated tasks. Read all documentation relevant to the task being performed.
