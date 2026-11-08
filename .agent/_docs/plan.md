@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-Build a content-management dashboard for the NOIR restaurant website.
+Build a content-management dashboard for the Aura Bistro restaurant website.
 
 The dashboard will allow authorized users to manage selected restaurant website content through a secure, responsive administrative interface.
 

@@ -2,7 +2,7 @@
 
 ## 1. Project Scope
 
-The dashboard manages selected content displayed on the NOIR restaurant website.
+The dashboard manages selected content displayed on the Aura Bistro restaurant website.
 
 ### Managed sections
 

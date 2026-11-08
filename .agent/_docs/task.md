@@ -40,14 +40,14 @@
 
 ## Phase 3 — Dashboard Shell
 
-- [ ] Implement sidebar.
-- [ ] Implement top navbar.
-- [ ] Implement breadcrumbs.
-- [ ] Implement main content layout.
-- [ ] Implement role-based navigation visibility.
-- [ ] Implement mobile sidebar overlay.
-- [ ] Verify desktop layout.
-- [ ] Verify mobile layout.
+- [x] Implement sidebar.
+- [x] Implement top navbar.
+- [x] Implement breadcrumbs.
+- [x] Implement main content layout.
+- [x] Implement role-based navigation visibility.
+- [x] Implement mobile sidebar overlay.
+- [x] Verify desktop layout.
+- [x] Verify mobile layout.
 
 ## Phase 4 — Authentication and Authorization
 
@@ -191,7 +191,7 @@
 
 ## Current Progress
 
-Current stage: Phase 2 in progress — design foundation and shared dashboard primitives are being implemented.
+Current stage: Phase 3 complete — the dashboard shell has been implemented and validated.
 
 Technical proposal summary:
 
