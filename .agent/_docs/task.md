@@ -191,7 +191,7 @@
 
 ## Current Progress
 
-Current stage: Phase 3 complete — the dashboard shell has been implemented and validated.
+Current stage: Phase 3 complete — the dashboard shell is shared through the dashboard layout, and the Overview page remains a Server Component.
 
 Technical proposal summary:
 
@@ -213,4 +213,4 @@ Phase 2 status:
 - Reusable confirmation dialogs were added in `components/ui/confirmation-dialog.tsx`, including the exact unsaved-changes warning and Keep Editing / Discard Changes actions.
 - React Toastify is mounted in the admin layout through `components/ui/toast-provider.tsx`, with shared success, error, and info helpers for dashboard workflows.
 
-Next task: review and verify the completed Phase 2 design foundation, then proceed to Phase 3 dashboard shell.
+Next task: proceed to Phase 4 authentication and authorization.
