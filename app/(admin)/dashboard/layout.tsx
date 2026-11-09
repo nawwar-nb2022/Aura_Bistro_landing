@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../../globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { DashboardChrome } from "@/components/admin/dashboard-chrome";
 import { ToastProvider } from "@/components/ui/toast-provider";
 
 export const metadata: Metadata = {
@@ -14,9 +15,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full bg-[var(--dashboard-bg)] text-slate-900">
-        {children}
+        <DashboardChrome>{children}</DashboardChrome>
         <ToastProvider />
       </body>
     </html>
