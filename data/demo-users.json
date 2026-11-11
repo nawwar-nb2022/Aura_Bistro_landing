@@ -1,0 +1,14 @@
+[
+  {
+    "id": "demo-super-admin",
+    "username": "demo-owner",
+    "role": "super_admin",
+    "passwordHash": "210000$5f20c3bb7077af36a79d259b0bd9e509$aacac1e115d2f2e2244550b441b3e46b3f6ef96d33ce4803fb1db3417b5a54df"
+  },
+  {
+    "id": "demo-admin",
+    "username": "demo-staff",
+    "role": "admin",
+    "passwordHash": "210000$4c70a4c2b4c03f58aea1ae1bea9ceede$0e46d644b915d1e9918d52dab211d1690ee334a14d5f90e53b3624608f462c0a"
+  }
+]

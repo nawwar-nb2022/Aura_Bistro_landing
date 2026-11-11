@@ -1,6 +1,7 @@
-import type { ReactNode } from "react"
+import { useState, type ReactNode } from "react"
 
 import { Button } from "@/components/ui/button"
+import { showErrorToast } from "@/components/ui/toast-provider"
 import {
   Dialog,
   DialogContent,
@@ -15,7 +16,8 @@ type ConfirmationDialogProps = {
   onOpenChange: (open: boolean) => void
   title: string
   description: ReactNode
-  onConfirm: () => void
+  onConfirm: () => void | Promise<void>
+  onConfirmError?: (error: unknown) => void
   confirmLabel?: string
   cancelLabel?: string
   destructive?: boolean
@@ -27,17 +29,36 @@ function ConfirmationDialog({
   title,
   description,
   onConfirm,
+  onConfirmError,
   confirmLabel = "Discard Changes",
   cancelLabel = "Keep Editing",
   destructive = true,
 }: ConfirmationDialogProps) {
-  function handleConfirm() {
-    onConfirm()
-    onOpenChange(false)
+  const [isConfirming, setIsConfirming] = useState(false)
+
+  async function handleConfirm() {
+    setIsConfirming(true)
+    try {
+      await onConfirm()
+      onOpenChange(false)
+    } catch (error) {
+      if (onConfirmError) {
+        onConfirmError(error)
+      } else {
+        showErrorToast("Unable to complete this action. Please try again.")
+      }
+    } finally {
+      setIsConfirming(false)
+    }
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(nextOpen) => {
+        if (!isConfirming || nextOpen) onOpenChange(nextOpen)
+      }}
+    >
       <DialogContent showCloseButton={false} className="max-w-md">
         <DialogHeader className="border-b-0 pb-2 pr-6">
           <DialogTitle>{title}</DialogTitle>
@@ -47,6 +68,7 @@ function ConfirmationDialog({
           <Button
             type="button"
             variant="outline"
+            disabled={isConfirming}
             onClick={() => onOpenChange(false)}
           >
             {cancelLabel}
@@ -54,9 +76,10 @@ function ConfirmationDialog({
           <Button
             type="button"
             variant={destructive ? "destructive" : "default"}
+            disabled={isConfirming}
             onClick={handleConfirm}
           >
-            {confirmLabel}
+            {isConfirming ? "Please wait..." : confirmLabel}
           </Button>
         </DialogFooter>
       </DialogContent>

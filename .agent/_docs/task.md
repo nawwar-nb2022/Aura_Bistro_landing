@@ -51,43 +51,43 @@
 
 ## Phase 4 — Authentication and Authorization
 
-- [ ] Implement Login.
-- [ ] Implement secure session handling.
-- [ ] Implement 30-minute inactivity expiration.
-- [ ] Implement logout.
-- [ ] Implement protected routes.
-- [ ] Implement backend role authorization.
-- [ ] Implement expired-session handling.
-- [ ] Test authentication and permissions.
+- [x] Implement Login UI and credential verification using local demo accounts.
+- [x] Implement secure session handling with hashed tokens and local JSON persistence.
+- [x] Implement 30-minute inactivity expiration with server-side validation and meaningful-activity refresh.
+- [x] Implement logout and session revocation.
+- [x] Implement protected dashboard routes.
+- [x] Implement reusable server-side role authorization and role-aware dashboard access.
+- [x] Implement expired-session handling with HTTP 401 responses and login redirect.
+- [x] Test password verification, session expiration, and role permissions.
 
 ## Phase 5 — Shared Content Infrastructure
 
-- [ ] Implement reusable data table.
-- [ ] Implement search.
-- [ ] Implement 5-second debounce.
-- [ ] Implement combined filters.
-- [ ] Implement pagination.
-- [ ] Implement loading states.
-- [ ] Implement empty states.
-- [ ] Implement no-results states.
-- [ ] Implement shared Add/Edit modal.
-- [ ] Implement form validation.
-- [ ] Implement unsaved-changes confirmation.
-- [ ] Implement Publish/Unpublish actions.
-- [ ] Implement shared Toast behavior.
+- [x] Implement reusable data table.
+- [x] Implement search.
+- [x] Implement 5-second debounce.
+- [x] Implement combined filters.
+- [x] Implement pagination.
+- [x] Implement loading states.
+- [x] Implement empty states.
+- [x] Implement no-results states.
+- [x] Implement shared Add/Edit modal.
+- [x] Implement form validation.
+- [x] Implement unsaved-changes confirmation.
+- [x] Implement Publish/Unpublish actions.
+- [x] Implement shared Toast behavior.
 
 ## Phase 6 — Content Pages
 
 ### Categories
 
-- [ ] Implement Categories page.
-- [ ] Implement category table.
-- [ ] Implement category search.
-- [ ] Implement Add Category.
-- [ ] Implement Edit Category.
-- [ ] Implement View Items navigation.
-- [ ] Implement category unpublishing.
-- [ ] Verify category/item visibility behavior.
+- [x] Implement Categories page structure and metadata.
+- [x] Implement category table structure.
+- [x] Implement category search.
+- [~] Implement Add Category form UI (persistence blocked pending content API).
+- [~] Implement Edit Category form UI (category records unavailable pending content API).
+- [x] Implement View Items navigation link with a category filter query.
+- [~] Implement category unpublishing confirmation UI (mutation blocked pending content API).
+- [!] Verify category/item visibility behavior (requires persisted category and item data).
 
 ### Items
 
@@ -191,7 +191,7 @@
 
 ## Current Progress
 
-Current stage: Phase 3 complete — the dashboard shell is shared through the dashboard layout, and the Overview page remains a Server Component.
+Current stage: Phase 6 in progress — Categories page structure, shared table/search, and the Add Category form UI are implemented. Phase 4 local-demo authentication is complete using hashed fixture credentials and local JSON session persistence. Production authentication and content data loading/mutations remain outside this local demo and require a production backend/database decision.
 
 Technical proposal summary:
 
@@ -199,7 +199,7 @@ Technical proposal summary:
 - The project is built with Next.js 16 App Router, React 19, TypeScript, and Tailwind-based styling.
 - Public landing-page routes and components already exist and should remain intact for now.
 - The dashboard will be introduced as a separate admin route and should not modify the current landing-page flow.
-- Authentication, authorization, data persistence, and image handling remain unresolved and will be defined before major implementation.
+- The local authentication demo connects credential verification, a JSON-backed session store, protected dashboard pages, role guards, logout, and server-enforced 30-minute idle expiration. It is intentionally limited to local, single-instance development and is not production-ready.
 - The project is ready for dashboard frontend work, but backend and data-layer requirements must be approved before moving into full feature implementation.
 
 Phase 2 status:
@@ -212,5 +212,6 @@ Phase 2 status:
 - Shared responsive dialog primitives were added in `components/ui/dialog.tsx`, with labelled title/description, optional close control, scrollable content, and an adaptive footer.
 - Reusable confirmation dialogs were added in `components/ui/confirmation-dialog.tsx`, including the exact unsaved-changes warning and Keep Editing / Discard Changes actions.
 - React Toastify is mounted in the admin layout through `components/ui/toast-provider.tsx`, with shared success, error, and info helpers for dashboard workflows.
+- Phase 5 shared content UI includes a Zod/React Hook Form Add/Edit dialog, accessible inline field errors, unsaved-change protection, and status actions with confirmed unpublishing and immediate publishing. Content pages supply their own Zod schema and mutation callback; those callbacks must validate again on the server and refresh the table after success.
 
-Next task: proceed to Phase 4 authentication and authorization.
+Next task: connect Categories loading and CRUD/publishing operations to an approved local or hosted content API, then verify category/item visibility behavior.

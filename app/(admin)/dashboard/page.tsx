@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -5,6 +6,7 @@ import {
   Package2,
   ShieldCheck,
 } from "lucide-react";
+import { requireDashboardSession } from "@/lib/auth/session-guard";
 
 const overviewCards = [
   {
@@ -38,7 +40,20 @@ const overviewCards = [
 ];
 
 export default function DashboardPage() {
-  const isSuperAdmin = true;
+  return (
+    <Suspense
+      fallback={
+        <p className="text-sm text-muted-foreground">Loading overview...</p>
+      }
+    >
+      <AuthenticatedDashboardPage />
+    </Suspense>
+  );
+}
+
+async function AuthenticatedDashboardPage() {
+  const session = await requireDashboardSession();
+  const isSuperAdmin = session.role === "super_admin";
 
   return (
     <>

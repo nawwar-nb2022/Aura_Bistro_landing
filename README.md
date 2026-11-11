@@ -4,9 +4,9 @@ Aura Bistro is a Mediterranean bistro website with a planned private content-man
 
 ## Project status
 
-The public landing page is implemented with locally defined content and simulated asynchronous data loading. The dashboard currently has its shared layout, responsive navigation, and a server-rendered Overview page with placeholder counts.
+The public landing page is implemented with locally defined content and simulated asynchronous data loading. The dashboard includes its shared layout, responsive navigation, and an Overview page with placeholder counts. A local demo authentication flow provides password verification, server-side sessions, protected routes, role-aware navigation, logout, and 30-minute idle expiration. Content persistence and content-management workflows are still in progress.
 
-Dashboard authentication, persistent data storage, backend authorization, and content-management workflows are not implemented yet. In particular, the Overview counts and displayed Admin role are placeholders; the current dashboard is not an authenticated or production-ready admin system.
+The Overview counts remain placeholders. The local demo authentication is not production-ready and is intended only for a single local development instance.
 
 ## Planned dashboard capabilities
 
@@ -22,7 +22,7 @@ The dashboard will have two roles:
 - **Super Admin:** Can manage all dashboard content and create or remove Admin accounts. The Super Admin account is provisioned outside the dashboard.
 - **Admin:** Can manage categories, items, features, testimonials, and their own profile, but cannot manage other accounts.
 
-Authorization must be enforced by the backend; hiding navigation or protecting frontend routes alone is not sufficient. The planned dashboard does not manage reservations, orders, customers, restaurant operations, opening hours, contact details, social links, the hero section, the story section, or the gallery.
+Authorization must be enforced by the backend; hiding navigation or protecting frontend routes alone is not sufficient. The local demo includes reusable server-side role guards for protected operations. The planned dashboard does not manage reservations, orders, customers, restaurant operations, opening hours, contact details, social links, the hero section, the story section, or the gallery.
 
 ### Planned content behavior
 
@@ -43,7 +43,7 @@ The current application uses:
 - Base UI and shared UI primitives
 - Lucide React icons
 
-The intended application structure keeps route pages and layouts in the App Router. Static display and data-oriented page content should remain Server Components by default; Client Components are reserved for interactive controls such as the mobile navigation overlay. A production database, authentication/session provider, API contract, password hashing approach, and image storage provider have not yet been selected or implemented.
+The intended application structure keeps route pages and layouts in the App Router. Static display and data-oriented page content should remain Server Components by default; Client Components are reserved for interactive controls such as the mobile navigation overlay. Authentication currently uses PBKDF2-hashed fixture credentials and a local JSON session file. A production database, authentication provider, content API contract, and image storage provider remain undecided.
 
 ## Getting started
 
@@ -55,6 +55,17 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+### Local demo sign-in
+
+Sign in at `/login` with either demo account:
+
+| Role | Username | Password |
+| --- | --- | --- |
+| Super Admin | `demo-owner` | `AuraBistroOwner!2026` |
+| Admin | `demo-staff` | `AuraBistroStaff!2026` |
+
+Only salted password hashes are stored in `data/demo-users.json`. Active sessions are written to `data/auth-sessions.local.json`, which is ignored by Git. This file-based store is for local, single-instance development only; do not deploy it as a production authentication system.
 
 ## Available scripts
 
@@ -90,5 +101,5 @@ The `.agent/_docs/` directory is the source of truth for the product scope, requ
 
 - Public menu, feature, and testimonial content is local sample data; asynchronous actions simulate delayed data loading and do not call a live API.
 - The reservation form is a visual interface and does not submit or store reservations.
-- The dashboard does not yet authenticate users, persist changes, or enforce role-based access.
+- The dashboard's local authentication demo is not production-ready; content data does not yet persist, and content APIs are not implemented.
 - The planned database, APIs, sessions, and image uploads are not yet available.

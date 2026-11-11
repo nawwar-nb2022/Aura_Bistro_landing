@@ -4,12 +4,17 @@ import Link from "next/link";
 import { ChevronRight, LogOut, Menu, UserCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { logoutAction } from "@/actions/auth";
 
 type DashboardNavbarProps = {
   onOpenSidebar: () => void;
+  username: string;
 };
 
-export function DashboardNavbar({ onOpenSidebar }: DashboardNavbarProps) {
+export function DashboardNavbar({
+  onOpenSidebar,
+  username,
+}: DashboardNavbarProps) {
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-white/80 backdrop-blur-sm">
       <div className="flex h-16 items-center justify-between gap-3 px-4 md:px-8">
@@ -42,12 +47,14 @@ export function DashboardNavbar({ onOpenSidebar }: DashboardNavbarProps) {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
           >
             <UserCircle2 className="size-4" />
-            <span className="hidden sm:inline">Admin</span>
+            <span className="hidden sm:inline">{username}</span>
           </Link>
-          <Button variant="outline" size="sm" className="gap-2">
-            <LogOut className="size-4" />
-            <span className="hidden sm:inline">Logout</span>
-          </Button>
+          <form action={logoutAction}>
+            <Button type="submit" variant="outline" size="sm" className="gap-2">
+              <LogOut className="size-4" />
+              <span className="hidden sm:inline">Logout</span>
+            </Button>
+          </form>
         </div>
       </div>
     </header>

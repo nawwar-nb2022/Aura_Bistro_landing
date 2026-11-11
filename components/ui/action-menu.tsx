@@ -7,6 +7,7 @@ import { cn } from "cn"
 type ActionMenuBaseProps = {
   recordName: string
   onEdit: () => void
+  disabled?: boolean
 }
 
 type ActionMenuProps =
@@ -24,6 +25,7 @@ export function ActionMenu(props: ActionMenuProps) {
     <MenuPrimitive.Root>
       <MenuPrimitive.Trigger
         aria-label={`Actions for ${props.recordName}`}
+        disabled={props.disabled}
         className={cn(
           buttonVariants({ variant: "ghost", size: "icon" }),
           "text-muted-foreground",

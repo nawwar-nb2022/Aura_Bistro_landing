@@ -47,3 +47,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Local demo authentication sessions
+/data/auth-sessions.local.json
+/data/auth-sessions.local.json.*.tmp
